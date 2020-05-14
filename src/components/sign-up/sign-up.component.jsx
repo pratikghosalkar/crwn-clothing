@@ -48,7 +48,7 @@ class SignUp extends Component {
           <FormInput type="text" name="displayName" value={displayName} handleChange={this.handleChange} label="Display Name" required />
           <FormInput type="email" name="email" value={email} handleChange={this.handleChange} label="Email" required />
           <FormInput type="password" name="password" value={password} handleChange={this.handleChange} label="Password" required />
-          <FormInput type="password" name="confirmPassword" value={confirmPassword} handleChange={this.handleChange} label="Confirm Password" required />
+          <FormInput type="password" name="confirmPassword" value={confirmPassword} onChange={this.handleChange} label="Confirm Password" required />
           <CustomButton type="submit">Sign Up</CustomButton>
         </form>
       </div>
