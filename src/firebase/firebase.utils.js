@@ -1,15 +1,15 @@
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/auth';
+import firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDw_KxfNYn1W3Yq9GTKw7MUFs2O0wrLUyA',
-  authDomain: 'pratik-ghosalkar.firebaseapp.com',
-  databaseURL: 'https://pratik-ghosalkar.firebaseio.com',
-  projectId: 'pratik-ghosalkar',
-  storageBucket: 'pratik-ghosalkar.appspot.com',
-  messagingSenderId: '220121609572',
-  appId: '1:220121609572:web:7b5257af38b56a68b43671',
+  apiKey: "AIzaSyDw_KxfNYn1W3Yq9GTKw7MUFs2O0wrLUyA",
+  authDomain: "pratik-ghosalkar.firebaseapp.com",
+  databaseURL: "https://pratik-ghosalkar.firebaseio.com",
+  projectId: "pratik-ghosalkar",
+  storageBucket: "pratik-ghosalkar.appspot.com",
+  messagingSenderId: "220121609572",
+  appId: "1:220121609572:web:7b5257af38b56a68b43671",
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -32,7 +32,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         ...additionalData,
       });
     } catch (error) {
-      console.log('error creating user', error.message);
+      console.log("error creating user", error.message);
     }
   }
 
@@ -69,11 +69,20 @@ export const convertCollectionsSnapshotToMap = (collections) => {
   }, {});
 };
 
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+      unsubscribe();
+      resolve(userAuth);
+    }, reject);
+  });
+};
+
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({ prompt: 'select_account' });
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: "select_account" });
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
 export default firebase;
